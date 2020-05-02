@@ -1,11 +1,13 @@
+const { description } = require('../../package');
+
 module.exports = {
-    title: 'Fenms-components',
-    description: 'fenms components',
-    base: '/fenms-components/',
+    title: 'Fms-components',
+    description: description,
+    base: '/fms-components/',
     port: '3000',
     dest: './website',
     themeConfig: {
-        repo: 'yemuguliunian/fenms-components',
+        repo: 'yemuguliunian/fms-components',
         sidebarDepth: 2,
         nav: [{ text: '组件', link: '/components/installation' }],
         sidebar: {
