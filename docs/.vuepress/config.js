@@ -1,4 +1,5 @@
 const { description } = require('../../package');
+const { resolve } = require('path');
 
 module.exports = {
     title: 'Fms-components',
@@ -6,6 +7,10 @@ module.exports = {
     base: '/fms-components/',
     port: '3000',
     dest: './website',
+    enhanceAppFiles:
+        process.env.NODE_ENV === 'development'
+            ? resolve(__dirname, 'enhanceApp-development.js')
+            : resolve(__dirname, 'enhanceApp-production.js'),
     themeConfig: {
         repo: 'yemuguliunian/fms-components',
         sidebarDepth: 2,
