@@ -4,14 +4,14 @@ title: 安装
 
 # 安装
 
-### npm 安装
+**npm**
 
-```
-npm install fenms-components -S
+```shell
+npm install @yemu419/fms-components -S
 ```
 
-### yarn
+**yarn**
 
-```
-yarn add fenms-components -S
+```shell
+yarn add @yemu419/fms-components -S
 ```

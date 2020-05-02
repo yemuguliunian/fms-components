@@ -20,7 +20,7 @@ module.exports = {
                 {
                     title: '开发指南',
                     collapsable: false,
-                    sidebarDepth: 1,
+                    sidebarDepth: 0,
                     children: ['/components/installation'],
                 },
                 {

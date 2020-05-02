@@ -4,4 +4,6 @@
 
 ## Install
 
-## Usage
+```shell
+yarn add @yemu419/fms-components -S
+```
