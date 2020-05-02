@@ -1,0 +1,18 @@
+# dependencies
+/node_modules
+
+# production
+/website
+
+# npm
+/lib
+
+# misc
+npm-debug.log*
+
+*.lock
+
+#cache
+.cache
+
+.DS_Store
