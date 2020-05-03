@@ -55,4 +55,23 @@ const initDefaultProps = (propTypes, defaultProps) => {
     return propTypes;
 };
 
-export { getClass, getStyle, initDefaultProps };
+const getListeners = context => {
+    return (context.$vnode ? context.$vnode.componentOptions.listeners : context.$listeners) || {};
+};
+
+const getOptionProps = instance => {
+    const { $props = {}, $options = {} } = instance;
+    return filterProps($props, $options.propsData);
+};
+
+const filterProps = (props, propsData = {}) => {
+    const res = {};
+    Object.keys(props).forEach(k => {
+        if (k in propsData || props[k] !== undefined) {
+            res[k] = props[k];
+        }
+    });
+    return res;
+};
+
+export { getClass, getStyle, initDefaultProps, getListeners, getOptionProps };
