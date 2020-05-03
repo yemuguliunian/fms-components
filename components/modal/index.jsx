@@ -7,7 +7,7 @@ const fModalProps = (defaultProps = {}) => {
 };
 
 const FModal = {
-    name: 'f-modal',
+    name: 'FModal',
     inheritAttrs: false,
     model: {
         prop: 'visible',
@@ -15,6 +15,10 @@ const FModal = {
     },
     props: fModalProps({
         maskClosable: false,
+        bodyStyle: {
+            maxHeight: '55vh',
+            overflow: 'auto',
+        },
     }),
     methods: {
         handleCancel(e) {
@@ -23,10 +27,10 @@ const FModal = {
         },
     },
     render() {
-        const { $props, $attrs, $slots, $scopedSlots } = this;
+        const { $attrs, $slots, $scopedSlots } = this;
         const children = $scopedSlots.default ? $scopedSlots.default() : $slots.default;
         const modalProps = {
-            props: $props,
+            props: this.$options.propsData,
             on: {
                 cancel: this.handleCancel,
             },
