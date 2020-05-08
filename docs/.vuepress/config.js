@@ -22,7 +22,7 @@ module.exports = {
                     title: '组件',
                     collapsable: false,
                     sidebarDepth: 0,
-                    children: ['/components/modal', '/components/tree-select'],
+                    children: ['/components/modal', '/components/table', '/components/tree-select'],
                 },
             ],
         },

@@ -6,6 +6,8 @@ title: TreeSelect
 
 ## 代码演示
 
+#### 基本用法
+
 <!-- prettier-ignore -->
 ::: demo
 
@@ -39,7 +41,6 @@ title: TreeSelect
     export default {
         data() {
             return {
-                treeExpandedKeys: [],
                 value: undefined,
             };
         },
@@ -48,11 +49,13 @@ title: TreeSelect
 
 :::
 
+#### 从数据直接生成
+
 <!-- prettier-ignore -->
 ::: demo
 <template>
     <f-tree-select
-        v-model="value"
+        v-model="value1"
         style="width: 100%"
         :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
         :tree-data="treeData"
@@ -96,7 +99,53 @@ title: TreeSelect
     export default {
         data() {
             return {
+                value1: undefined,
+                treeData,
+            };
+        },
+        watch: {
+            value(value1) {
+                console.log(value1);
+            },
+        },
+    };
+</script>
+
+:::
+
+<script>
+    const treeData = [
+        {
+            title: 'Node1',
+            value: '0-0',
+            key: '0-0',
+            children: [
+                {
+                    value: '0-0-1',
+                    key: '0-0-1',
+                    scopedSlots: {
+                        // custom title
+                        title: 'title',
+                    },
+                },
+                {
+                    title: 'Child Node2',
+                    value: '0-0-2',
+                    key: '0-0-2',
+                },
+            ],
+        },
+        {
+            title: 'Node2',
+            value: '0-1',
+            key: '0-1',
+        },
+    ];
+    export default {
+        data() {
+            return {
                 value: undefined,
+                value1: undefined,
                 treeData,
             };
         },
@@ -107,8 +156,6 @@ title: TreeSelect
         },
     };
 </script>
-
-:::
 
 ## API
 
