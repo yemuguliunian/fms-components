@@ -26,15 +26,28 @@
 }
 .theme-container{
     .ant-table table {
-        display: table
+        display: table;
+        margin: 0;
     }
     .ant-table th {
         border: none
     }
     .ant-table td {
-        border: none
+        border: none;
+        &:first-child {
+            color: rgba(0, 0, 0, 0.65);
+        }
+        &:nth-child(3) {
+            color: rgba(0, 0, 0, 0.65);
+        }
     }
     .ant-table-bordered td {
         border-bottom: 1px solid #e8e8e8;
     }
+    .ant-table a {
+        color: #1890ff;
+    }
+}
+.fms-table-column-setting-title a {
+    color: #1890ff;
 }
