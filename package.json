@@ -74,6 +74,7 @@
     "classnames": "^2.2.6",
     "core-js": "^2.6.11",
     "lodash": "^4.17.15",
+    "moment": "^2.25.3",
     "vue": "^2.6.11",
     "vue-draggable-resizable": "2.1.0"
   }
