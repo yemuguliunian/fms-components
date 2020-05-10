@@ -1,3 +1,41 @@
+@prefix-cls: fms-table;
+
+.@{prefix-cls} {
+    &-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 36px;
+        padding: 0 16px;
+    }
+    &-toolbar-title {
+        flex: 1 1;
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 16px;
+        line-height: 24px;
+        opacity: 0.85;
+    }
+    &-toolbar-option {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    &-column-setting-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 32px;
+    }
+}
+
+.toolbar-option-item {
+    i {
+        cursor: pointer;
+        margin-left: 8px;
+        font-size: 16px;
+    }
+}
+
 .resize-table-th {
     position: relative;
     .table-draggable-handle {

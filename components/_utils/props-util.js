@@ -55,8 +55,20 @@ const initDefaultProps = (propTypes, defaultProps) => {
     return propTypes;
 };
 
-const getListeners = context => {
-    return (context.$vnode ? context.$vnode.componentOptions.listeners : context.$listeners) || {};
+const getListeners = (context, pull = []) => {
+    let res = {};
+    const listeners =
+        (context.$vnode ? context.$vnode.componentOptions.listeners : context.$listeners) || {};
+    if (Array.isArray(pull) && pull.length > 0) {
+        Object.keys(listeners).forEach(k => {
+            if (!pull.includes(k)) {
+                res[k] = listeners[k];
+            }
+        });
+    } else {
+        res = listeners;
+    }
+    return res;
 };
 
 const getOptionProps = instance => {
@@ -74,4 +86,36 @@ const filterProps = (props, propsData = {}) => {
     return res;
 };
 
-export { getClass, getStyle, initDefaultProps, getListeners, getOptionProps };
+const getAntVComponentProps = (antVProps, optionProps, pull = []) => {
+    let res = {};
+    Object.keys(optionProps).forEach(k => {
+        if (k in antVProps && !pull.includes(k)) {
+            res[k] = optionProps[k];
+        }
+    });
+    return res;
+};
+
+const getComponentFromProp = (instance, prop, options = instance) => {
+    const h = instance.$createElement;
+    const temp = instance[prop];
+    if (temp !== undefined) {
+        return typeof temp === 'function' ? temp(h, options) : temp;
+    }
+    return (
+        (instance.$scopedSlots[prop] && instance.$scopedSlots[prop](options)) ||
+        instance.$scopedSlots[prop] ||
+        instance.$slots[prop] ||
+        undefined
+    );
+};
+
+export {
+    getClass,
+    getStyle,
+    initDefaultProps,
+    getListeners,
+    getOptionProps,
+    getAntVComponentProps,
+    getComponentFromProp,
+};

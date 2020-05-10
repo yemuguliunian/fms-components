@@ -1,7 +1,10 @@
 import Table from 'ant-design-vue/es/table';
+import Tooltip from 'ant-design-vue/es/tooltip';
+import Icon from 'ant-design-vue/es/icon';
+import ColumnSetting from './ColumnSetting';
+
 import Vue from 'vue';
 import VueDraggableResizable from 'vue-draggable-resizable';
-import cloneDeep from 'lodash/cloneDeep';
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
 
@@ -11,6 +14,8 @@ import {
     initDefaultProps,
     getListeners,
     getOptionProps,
+    getAntVComponentProps,
+    getComponentFromProp,
 } from '../_utils/props-util';
 
 const fTableProps = (defaultProps = {}) => {
@@ -27,70 +32,81 @@ const FTable = {
         ...fTableProps({
             bordered: true,
         }),
-        draggable: {
-            type: Boolean,
-            default: false,
-        },
-        serialable: Boolean,
-        serialTitle: {
+        prefixCls: {
             type: String,
-            default: '序号',
+            default: 'fms-table',
         },
-        startSerial: {
-            type: Number,
-            default: 1,
+        draggable: Boolean,
+        columnVisibleSetting: {
+            type: Boolean,
+            default: true,
         },
+        defaultVisibleColumnKeys: Array,
+        toolbar: Boolean,
+        toolbarTitle: null,
     },
     data() {
-        const { draggable } = this;
-        this.newColumns = this.insertSerialColumn();
+        const { draggable } = this.$props;
         if (draggable) {
-            const { resizeableTitle, newColumns } = this;
+            const { resizeableTitle, columns } = this.$props;
             const draggingMap = {};
-            newColumns.forEach(col => {
+            columns.forEach(col => {
                 draggingMap[col.key || col.dataIndex] = col.width;
             });
             this.draggingState = Vue.observable(draggingMap);
-            this.newComponents = draggable ? { header: { cell: resizeableTitle } } : undefined;
+            this.customComponents = draggable ? { header: { cell: resizeableTitle } } : undefined;
         }
 
-        return {};
+        return {
+            checkedList: [],
+            visibleColumns: [],
+        };
     },
     computed: {
-        data: function() {
-            const { dataSource, startSerial } = this;
-            if (this.serialable) {
-                return dataSource.map((item, index) => {
-                    return {
-                        ...item,
-                        serial: index + startSerial,
-                    };
-                });
-            }
-            return dataSource;
+        options: function() {
+            return this.columns.map(col => ({
+                ...col,
+                key: col.dataIndex || col.key,
+            }));
         },
     },
+    created() {
+        this.init();
+    },
     methods: {
-        insertSerialColumn() {
-            let { columns, serialable, serialTitle } = this;
-            if (serialable) {
-                columns = [
-                    {
-                        title: serialTitle,
-                        dataIndex: 'serial',
-                        width: 70,
-                    },
-                    ...cloneDeep(columns),
-                ];
+        init() {
+            const {
+                toolbar,
+                columnVisibleSetting,
+                columns,
+                defaultVisibleColumnKeys,
+            } = this.$props;
+            if (!toolbar || !columnVisibleSetting) {
+                this.$data.visibleColumns = columns;
+            } else {
+                if (defaultVisibleColumnKeys) {
+                    Object.assign(this.$data, {
+                        checkedList: defaultVisibleColumnKeys,
+                        visibleColumns: columns.filter(item =>
+                            defaultVisibleColumnKeys.includes(item.dataIndex || item.key),
+                        ),
+                    });
+                } else {
+                    this.checkedList = columns.map(item => item.dataIndex);
+                    this.newColumns = columns;
+                    Object.assign(this.$data, {
+                        checkedList: columns.map(item => item.dataIndex || item.key),
+                        visibleColumns: columns,
+                    });
+                }
             }
-            return columns;
         },
 
         resizeableTitle(h, props, children) {
-            const { newColumns, draggingState } = this;
+            const { columns, draggingState } = this;
             let thDom = null;
             const { key, ...restProps } = props;
-            const col = newColumns.find(col => {
+            const col = columns.find(col => {
                 const k = col.dataIndex || col.key;
                 return k === key;
             });
@@ -123,33 +139,98 @@ const FTable = {
                         resizable={false}
                         onDragging={onDrag}
                         onDragstop={onDragstop}
-                    ></vue-draggable-resizable>
+                    />
                 </th>
+            );
+        },
+
+        onChangeColumns(keys) {
+            const { options } = this;
+            this.$data.checkedList = keys;
+            this.$data.visibleColumns = options.filter(item => keys.includes(item.key));
+        },
+
+        renderToolBar(node) {
+            const { prefixCls, toolbarTitle, columnVisibleSetting } = this.$props;
+
+            const { checkedList } = this.$data;
+            return (
+                <div class={`${prefixCls}-wrapper`}>
+                    <div class={`${prefixCls}-toolbar`}>
+                        <div class={`${prefixCls}-toolbar-title`}>
+                            {toolbarTitle || this.$slots.toolbarTitle
+                                ? getComponentFromProp(this, 'toolbarTitle')
+                                : '查询表格'}
+                        </div>
+                        <div class={`${prefixCls}-toolbar-option`}>
+                            <div
+                                class="toolbar-option-item"
+                                style="margin-right: 8px;"
+                                onClick={() => {
+                                    this.$emit('refresh');
+                                }}
+                            >
+                                <Tooltip title="刷新">
+                                    <Icon type="redo" />
+                                </Tooltip>
+                            </div>
+                            {columnVisibleSetting && (
+                                <ColumnSetting
+                                    props={{
+                                        prefixCls,
+                                        checkedList,
+                                        options: this.options,
+                                    }}
+                                    on={{
+                                        change: this.onChangeColumns,
+                                        reset: this.init,
+                                    }}
+                                >
+                                    <div class="toolbar-option-item">
+                                        <Tooltip title="列设置">
+                                            <Icon type="setting" />
+                                        </Tooltip>
+                                    </div>
+                                </ColumnSetting>
+                            )}
+                        </div>
+                    </div>
+                    {node}
+                </div>
             );
         },
     },
 
     render() {
         const { $attrs, $slots, $scopedSlots } = this;
+
+        const { visibleColumns } = this.$data;
+        const { toolbar, ...rest } = getOptionProps(this);
+
         const tableProps = {
             props: {
-                ...getOptionProps(this),
-                components: this.newComponents,
-                columns: this.newColumns,
-                dataSource: this.data,
+                ...getAntVComponentProps(Table.props, rest, ['prefixCls']),
+                components: this.customComponents,
+                columns: visibleColumns,
             },
             on: {
-                ...getListeners(this),
+                ...getListeners(this, ['refresh']),
             },
             attrs: $attrs,
             class: {
                 ...getClass(this),
-                'fms-table': true,
             },
             style: getStyle(this),
             scopedSlots: $scopedSlots,
         };
-        return <Table {...tableProps}>{$slots.default}</Table>;
+
+        let node = <Table {...tableProps}>{$slots.default}</Table>;
+
+        if (toolbar) {
+            node = this.renderToolBar(node);
+        }
+
+        return node;
     },
 };
 
