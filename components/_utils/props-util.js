@@ -44,7 +44,7 @@ const getStyle = ele => {
     return style;
 };
 
-const initDefaultProps = (propTypes, defaultProps) => {
+const initDefaultProps = (propTypes, defaultProps = {}) => {
     Object.keys(defaultProps).forEach(k => {
         if (propTypes[k]) {
             propTypes[k].def && (propTypes[k] = propTypes[k].def(defaultProps[k]));
