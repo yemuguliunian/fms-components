@@ -4,6 +4,19 @@ title: TreeSelect
 
 # 树型选择控件
 
+**变更点**
+
+-   默认显示清除按钮
+-   默认在下拉中显示搜索框，并输入项过滤对应的`treeNode`属性变更为`title`
+-   下拉菜单样式`dropdownStyle`默认添加最大高度`{maxHeight: '400px'}`
+
+## 组件注册
+
+```js
+import { TreeSelect } from '@yemu419/fms-components';
+Vue.use(TreeSelect);
+```
+
 ## 代码演示
 
 #### 基本用法
@@ -159,8 +172,6 @@ title: TreeSelect
 
 ## API
 
-详细请参考：[ant-design-vue/tree-select](https://antdv.com/components/tree-select-cn/#API)
-
 **差异**
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
@@ -170,3 +181,5 @@ title: TreeSelect
 | searchPlaceholder | 搜索框默认文字 | string\|slot | '请输入' |  |
 | showSearch | 在下拉中显示搜索框(仅在单选模式下生效) | boolean | true |  |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'title' |  |
+
+更多属性请参考 [ant-design-vue/TreeSelect](https://antdv.com/components/tree-select-cn/#API)。

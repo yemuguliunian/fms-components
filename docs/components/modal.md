@@ -4,6 +4,11 @@ title: Modal
 
 # Modal 对话框
 
+**变更点**
+
+-   `maskClosable` 属性值默认为 `false`
+-   `bodyStyle` body 样式加上最大高度
+
 ## 代码演示
 
 <!-- prettier-ignore -->
@@ -39,11 +44,11 @@ export default {
 
 ## API
 
-详细请参考：[ant-design-vue/modal](https://antdv.com/components/modal-cn/#API)
-
 **差异**
 
 | 参数         | 说明                 | 类型    | 默认值                                 | 版本 |
 | ------------ | -------------------- | ------- | -------------------------------------- | ---- |
 | bodyStyle    | Modal body 样式      | object  | { maxHeight: '55vh', overflow: 'auto'} |      |
 | maskClosable | 点击蒙层是否允许关闭 | boolean | false                                  |      |
+
+更多属性请参考 [ant-design-vue/Modal](https://antdv.com/components/modal-cn/#API)。

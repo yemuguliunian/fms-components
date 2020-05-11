@@ -4,6 +4,11 @@ title: Table
 
 # Table 表格
 
+**变更点**
+
+-   可通过`draggable`配置控制是否可伸缩列
+-   支持列表项显隐
+
 ## 代码演示
 
 #### 配置 draggable 来实现可伸缩列。实现方式-[参考](https://www.antdv.com/components/table-cn/#components-table-demo-resizable-column)
@@ -284,8 +289,6 @@ export default {
 
 ## API
 
-详细请参考：[ant-design-vue/table](https://antdv.com/components/table-cn/#API)
-
 **差异**
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
@@ -296,3 +299,5 @@ export default {
 | draggable | 是否可收缩列 | boolean | false |  |
 | toolbar | 是否显示工具栏 | boolean | false |  |
 | toolbarTitle | 自定义工具栏标题位 | String\|Function\| slot |  |  |
+
+更多属性请参考 [ant-design-vue/Table](https://antdv.com/components/table-cn/#API)。
