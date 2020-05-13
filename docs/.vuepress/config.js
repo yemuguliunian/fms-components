@@ -1,3 +1,4 @@
+const uslug = require('uslug');
 const { description } = require('../../package');
 
 module.exports = {
@@ -34,4 +35,11 @@ module.exports = {
         smoothScroll: true, // 启用页面滚动效果
     },
     plugins: ['@vuepress/back-to-top', ['@yemu419/demo-code']],
+    markdown: {
+        anchor: {
+            permalink: true,
+            permalinkBefore: true,
+            slugify: s => uslug(s, { lower: false }),
+        },
+    },
 };

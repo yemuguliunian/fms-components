@@ -9,9 +9,16 @@ title: Table
 -   可通过`draggable`配置控制是否可伸缩列
 -   支持列表项显隐
 
+## 组件注册
+
+```js
+import { Table } from '@yemu419/fms-components';
+Vue.use(Table);
+```
+
 ## 代码演示
 
-#### 配置 draggable 来实现可伸缩列。实现方式-[参考](https://www.antdv.com/components/table-cn/#components-table-demo-resizable-column)
+#### 可伸缩列
 
 <!-- prettier-ignore -->
 ::: demo
@@ -158,7 +165,7 @@ export default {
 
 :::
 
-#### 自定义工具栏标题位内容
+#### 自定义工具栏标题
 
 <!-- prettier-ignore -->
 ::: demo
@@ -301,3 +308,12 @@ export default {
 | toolbarTitle | 自定义工具栏标题位 | String\|Function\| slot |  |  |
 
 更多属性请参考 [ant-design-vue/Table](https://antdv.com/components/table-cn/#API)。
+
+<template>
+    <a-anchor class="toc-affix" :targetOffset="100">
+        <a-anchor-link href="#可伸缩列" title="可伸缩列" />
+        <a-anchor-link href="#可配置列表项显隐" title="可配置列表项显隐" />
+        <a-anchor-link href="#自定义工具栏标题" title="自定义工具栏标题" />
+        <a-anchor-link href="#API" title="API" />
+    </a-anchor>
+</template>

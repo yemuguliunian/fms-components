@@ -183,3 +183,11 @@ Vue.use(TreeSelect);
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'title' |  |
 
 更多属性请参考 [ant-design-vue/TreeSelect](https://antdv.com/components/tree-select-cn/#API)。
+
+<template>
+    <a-anchor class="toc-affix" :targetOffset="100">
+        <a-anchor-link href="#基本用法" title="基本用法" />
+        <a-anchor-link href="#从数据直接生成" title="从数据直接生成" />
+        <a-anchor-link href="#API" title="API" />
+    </a-anchor>
+</template>

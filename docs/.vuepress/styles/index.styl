@@ -1,12 +1,12 @@
 .theme-default-content:not(.custom) > h2 {
-    margin: 1.6em 0 .6em;
+    margin: 1.6em 0 0.6em;
     padding-top: 0;
     border-bottom: none;
     font-weight: 500;
     clear: both;
 }
 
-.theme-container{
+.theme-container {
     table th {
         white-space: nowrap;
     }
@@ -24,13 +24,13 @@
         text-decoration: none;
     }
 }
-.theme-container{
+.theme-container {
     .ant-table table {
         display: table;
         margin: 0;
     }
     .ant-table th {
-        border: none
+        border: none;
     }
     .ant-table td {
         border: none;
@@ -62,7 +62,8 @@
     tr:nth-child(2n) {
         background-color: transparent;
     }
-    th, td {
+    th,
+    td {
         padding: 0;
     }
 }
@@ -72,4 +73,17 @@
 
 .demo-and-code-wrapper .ant-calendar-picker {
     margin-bottom: 12px;
+}
+
+.toc-affix {
+    width: 150px;
+    position: fixed;
+    top: 100px;
+    right: 10px;
+}
+
+@media screen and (max-width: 1350px) {
+    .toc-affix {
+        display: none;
+    }
 }

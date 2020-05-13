@@ -9,7 +9,16 @@ title: Modal
 -   `maskClosable` 属性值默认为 `false`
 -   `bodyStyle` body 样式加上最大高度
 
+## 组件注册
+
+```js
+import { Modal } from '@yemu419/fms-components';
+Vue.use(Modal);
+```
+
 ## 代码演示
+
+#### 基本使用
 
 <!-- prettier-ignore -->
 ::: demo
@@ -52,3 +61,10 @@ export default {
 | maskClosable | 点击蒙层是否允许关闭 | boolean | false                                  |      |
 
 更多属性请参考 [ant-design-vue/Modal](https://antdv.com/components/modal-cn/#API)。
+
+<template>
+    <a-anchor class="toc-affix" :targetOffset="100">
+        <a-anchor-link href="#基本使用" title="基本使用" />
+        <a-anchor-link href="#API" title="API" />
+    </a-anchor>
+</template>
