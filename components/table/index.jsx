@@ -48,13 +48,13 @@ const FTable = {
     data() {
         const { draggable } = this.$props;
         if (draggable) {
-            const { resizeableTitle, columns } = this.$props;
+            const { columns } = this.$props;
             const draggingMap = {};
             columns.forEach(col => {
                 draggingMap[col.key || col.dataIndex] = col.width;
             });
             this.draggingState = Vue.observable(draggingMap);
-            this.customComponents = draggable ? { header: { cell: resizeableTitle } } : undefined;
+            this.customComponents = { header: { cell: this.resizeableTitle } };
         }
 
         return {
