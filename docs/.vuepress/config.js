@@ -1,7 +1,7 @@
 const uslug = require('uslug');
 const { description } = require('../../package');
 
-module.exports = {
+module.exports = (options, context) => ({
     title: 'Fms-components',
     description: description,
     base: '/fms-components/',
@@ -35,6 +35,9 @@ module.exports = {
         smoothScroll: true, // 启用页面滚动效果
     },
     plugins: ['@vuepress/back-to-top', ['@yemu419/demo-code']],
+    alias: {
+        '@yemu419/fms-components': '../../components',
+    },
     markdown: {
         anchor: {
             permalink: true,
@@ -42,4 +45,23 @@ module.exports = {
             slugify: s => uslug(s, { lower: false }),
         },
     },
-};
+    chainWebpack: (config, isServer) => {
+        config.module
+            .rule('js')
+            .use('babel-loader')
+            .tap(options =>
+                Object.assign(options, {
+                    plugins: [
+                        [
+                            'import',
+                            {
+                                libraryName: 'ant-design-vue',
+                                libraryDirectory: 'es',
+                                style: 'css',
+                            },
+                        ],
+                    ],
+                }),
+            );
+    },
+});

@@ -1,10 +1,7 @@
-import Fms from '../../components';
-import '../../components/style';
+import Fms from '@yemu419/fms-components';
+import '@yemu419/fms-components/style';
 
-import Button from 'ant-design-vue/es/button';
-import 'ant-design-vue/es/button/style/css';
-import Anchor from 'ant-design-vue/es/anchor';
-import 'ant-design-vue/es/anchor/style/css';
+import { Button, Anchor } from 'ant-design-vue';
 
 export default ({ Vue }) => {
     Vue.use(Button);
