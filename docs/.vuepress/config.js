@@ -27,6 +27,7 @@ module.exports = (options, context) => ({
                         '/components/date-picker',
                         '/components/modal',
                         '/components/table',
+                        '/components/table-cell',
                         '/components/tree-select',
                     ],
                 },
